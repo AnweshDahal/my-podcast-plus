@@ -1,31 +1,79 @@
 <template>
   <v-app>
     <div>
-      <v-text-field ty v-model="searchTerm" ></v-text-field>
+      <v-text-field ty v-model="searchTerm"></v-text-field>
       <v-btn @click="submit">Submit</v-btn>
-      {{ response }}
+      <div v-for="result in results" :key="result.trackId">
+        {{result.trackCensoredName}}
+        <v-btn @click="rss(result.feedUrl)">Feed: {{ result.feedUrl}}</v-btn>
+      </div> 
     </div>
   </v-app>
 </template>
 
 <script>
-import itunesFetchService from './services/itunesFetchService'
+import api from "./services/api";
 export default {
-  name: 'App',
-  components: {
+  name: "App",
+  components: {},
+
+  created() {
+    this.results = [];
+    this.searchTerm = "JRE";
   },
 
   methods: {
-    async submit(){
-      this.response = await itunesFetchService.index(this.searchTerm)
-    }
+    async rss(feedUrl){
+      console.log(feedUrl)
+      await api.rssFetch(feedUrl)
+    },
+    async submit() {
+      console.log("Test");
+      this.response = await api
+        .itunesSearch(this.searchTerm)
+        .then((res) => {
+          this.results = [];
+          res.results.forEach((element) => {
+            let response_ = {
+              artistName: element.artistName,
+              artworkUrl130: element.artworkUrl130,
+              artworkUrl1100: element.artworkUrl1100,
+              artworkUrl1600: element.artworkUrl1600,
+              collectionCensoredName: element.collectionCensoredName,
+              collectionExplicitness: element.collectionExplicitness,
+              collectionId: element.collectionId,
+              collectionName: element.collectionName,
+              collectionViewUrl: element.collectionViewUrl,
+              contentAdvisoryRating: element.contentAdvisoryRating,
+              country: element.country,
+              feedUrl: element.feedUrl,
+              genres: element.genres,
+              kind: element.kind,
+              primaryGenreName: element.primaryGenreName,
+              releaseDate: element.releaseDate,
+              trackCensoredName: element.trackCensoredName,
+              trackCount: element.trackCount,
+              trackExplicitness: element.trackExplicitness,
+              trackId: element.trackId,
+              trackName: element.trackName,
+              trackTimeMillis: element.trackTimeMillis,
+              trackViewUrl: element.trackViewUrl,
+            };
+            this.results.push(response_);
+          });
+        });
+      console.log(this.results);
+
+    },
   },
 
-  data: () => ({
-    //
-    response: null,
-    searchTerm: null,
-    result: null,
-  }),
+  data() {
+    return {
+      greet: null,
+      response: null,
+      results: null,
+      searchTerm: null,
+    };
+  },
 };
 </script>
