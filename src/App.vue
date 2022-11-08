@@ -1,21 +1,28 @@
 <template>
   <v-app>
     <div>
+      <HeaderVue></HeaderVue>
       <v-text-field ty v-model="searchTerm"></v-text-field>
       <v-btn @click="submit">Submit</v-btn>
       <div v-for="result in results" :key="result.trackId">
         {{result.trackCensoredName}}
         <v-btn @click="rss(result.feedUrl)">Feed: {{ result.feedUrl}}</v-btn>
-      </div> 
+      </div>
+      <MediaPlayer></MediaPlayer>
     </div>
   </v-app>
 </template>
 
 <script>
 import api from "./services/api";
+import HeaderVue from "./components/HeaderVue.vue";
+import MediaPlayer from "./components/MediaPlayer.vue";
 export default {
   name: "App",
-  components: {},
+  components: {
+    HeaderVue,
+    MediaPlayer
+  },
 
   created() {
     this.results = [];
@@ -77,3 +84,33 @@ export default {
   },
 };
 </script>
+<style>
+  * {
+    font-family: 'Inter', sans-serif !important;
+  }
+
+  .text-bold{
+    font-weight: 700;
+  }
+
+  /* Vuetify Overrides */
+  .v-slider__track-container{
+    height: 5px !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+    cursor: pointer !important
+  }
+
+  .v-slider__track-fill{
+    border-radius: 10px !important;
+  }
+
+  .v-slider__thumb{
+    display: none !important;
+  }
+
+  .v-messages{
+    display: none;
+  }
+
+</style>
