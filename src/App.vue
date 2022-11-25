@@ -2,6 +2,7 @@
   <v-app>
     <div>
       <HeaderVue></HeaderVue>
+      <GreeterVue></GreeterVue>
       <v-text-field ty v-model="searchTerm"></v-text-field>
       <v-btn @click="submit">Submit</v-btn>
       <div v-for="result in results" :key="result.trackId">
@@ -15,18 +16,21 @@
 
 <script>
 import api from "./services/api";
+// Components
 import HeaderVue from "./components/HeaderVue.vue";
 import MediaPlayer from "./components/MediaPlayer.vue";
+import GreeterVue from "./components/GreeterVue.vue";
 export default {
   name: "App",
   components: {
     HeaderVue,
-    MediaPlayer
+    MediaPlayer,
+    GreeterVue
   },
 
   created() {
     this.results = [];
-    this.searchTerm = "JRE";
+    this.searchTerm = "";
   },
 
   methods: {
