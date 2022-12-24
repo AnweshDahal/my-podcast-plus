@@ -102,21 +102,25 @@ export default {
   },
   methods: {
     mute() {
-      if (this.volumeStatus === "mdi-volume-high" || this.volumeStatus === 'mdi-volume-medium' || this.volumeStatus === 'mdi-volume-low') {
+      if (
+        this.volumeStatus === "mdi-volume-high" ||
+        this.volumeStatus === "mdi-volume-medium" ||
+        this.volumeStatus === "mdi-volume-low"
+      ) {
         this.volumeStatus = "mdi-volume-mute";
       } else {
         this.volumeStatus = "mdi-volume-medium";
       }
     },
-    changeVolume(){
-      if (this.volume > 50){
-        this.volumeStatus = "mdi-volume-high"
-      } else if (this.volume >= 10 && this.volume <= 50){
-        this.volumeStatus = "mdi-volume-medium"
+    changeVolume() {
+      if (this.volume > 50) {
+        this.volumeStatus = "mdi-volume-high";
+      } else if (this.volume >= 10 && this.volume <= 50) {
+        this.volumeStatus = "mdi-volume-medium";
       } else if (this.volume < 10) {
-        this.volumeStatus = "mdi-volume-low"
+        this.volumeStatus = "mdi-volume-low";
       }
-    }
+    },
   },
 };
 </script>
@@ -138,8 +142,14 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
+.thumbnail {
+  border-radius: 24px !important;
+}
+
 .player-container {
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   justify-content: flex-end;
   width: 92%;
@@ -148,7 +158,6 @@ export default {
 .controls-container {
   width: 100%;
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 }
@@ -165,14 +174,22 @@ export default {
   justify-content: space-between;
 }
 
+.title-container {
+  display: flex;
+  align-items: flex-end;
+}
+
 .title-container .title {
   font-family: Manrope, sans-serif !important;
+  height: 100%;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 1.35rem;
 }
 
 .time-container {
   display: flex;
+  padding-inline: 10px;
   align-items: center;
 }
 
@@ -221,5 +238,9 @@ export default {
   > div
   > div.v-input__slot {
   margin-bottom: 0px;
+}
+
+.volume-icon {
+  cursor: pointer;
 }
 </style>

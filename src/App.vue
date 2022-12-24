@@ -79,10 +79,10 @@ export default {
 };
 </script>
 <style>
-html{
+html {
   max-width: 100vw;
   max-height: 100vh;
-  overflow: hidden
+  overflow: hidden;
 }
 * {
   font-family: "Inter", sans-serif !important;
