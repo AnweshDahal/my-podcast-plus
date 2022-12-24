@@ -16,6 +16,7 @@ import HeaderVue from "./components/HeaderVue.vue";
 import MediaPlayer from "./components/MediaPlayer.vue";
 import GreeterVue from "./components/GreeterVue.vue";
 import HomeView from "./components/HomeView.vue";
+import { createPodcast } from "@/firebase/index";
 
 export default {
   name: "App",
@@ -41,6 +42,9 @@ export default {
           this.results.push(element);
         });
       });
+
+      console.table(this.results);
+      createPodcast(this.results[0]);
     },
   },
 

@@ -1,4 +1,5 @@
 export default {
+  id: null,
   category: null,
   copyright: null,
   description: null,

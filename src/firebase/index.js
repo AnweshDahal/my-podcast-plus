@@ -1,5 +1,14 @@
+/**
+ * IMPORTANT
+ * The default firebase initialization script from the firbase website does
+ * import { intializeApp } from "firebase/app"
+ * however modular imports have changed from since 9.x
+ * Now
+ */
+
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 import { onUnmounted, ref } from "vue";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -7,17 +16,17 @@ import { onUnmounted, ref } from "vue";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBLTiKwyNk0SJnYIcjVejmNOxBGSMzJWh8",
-  authDomain: "my-podcast-plus.firebaseapp.com",
-  projectId: "my-podcast-plus",
-  storageBucket: "my-podcast-plus.appspot.com",
-  messagingSenderId: "1010499356981",
-  appId: "1:1010499356981:web:c50d65d90fdfbf937b647c",
-  measurementId: "G-09Y3K8EDQ4",
+  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+  authDomain: process.app.VUE_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.VUE_APP_FIREBASE_PRJECT_ID,
+  storageBucket: process.app.VUE_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.app.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.app.VUE_APP_FIREBASE_APP_ID,
+  measurementId: process.app.VUE_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
 const db = app.firestore();
 const podcastCollection = db.collection("podcast");
@@ -33,6 +42,10 @@ export const createPodcast = (podcast) => {
 
 export const createLiked = (liked) => {
   return likedCollection.add(liked);
+};
+
+export const createHistory = (history) => {
+  return historyCollection.add(history);
 };
 
 // getting a database entry from firebase
