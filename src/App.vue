@@ -38,31 +38,6 @@ export default {
       this.response = await api.itunesSearch(searchTerm).then((res) => {
         this.results = [];
         res.results.forEach((element) => {
-          // let response_ = {
-          //   artistName: element.artistName,
-          //   artworkUrl130: element.artworkUrl130,
-          //   artworkUrl1100: element.artworkUrl1100,
-          //   artworkUrl1600: element.artworkUrl1600,
-          //   collectionCensoredName: element.collectionCensoredName,
-          //   collectionExplicitness: element.collectionExplicitness,
-          //   collectionId: element.collectionId,
-          //   collectionName: element.collectionName,
-          //   collectionViewUrl: element.collectionViewUrl,
-          //   contentAdvisoryRating: element.contentAdvisoryRating,
-          //   country: element.country,
-          //   feedUrl: element.feedUrl,
-          //   genres: element.genres,
-          //   kind: element.kind,
-          //   primaryGenreName: element.primaryGenreName,
-          //   releaseDate: element.releaseDate,
-          //   trackCensoredName: element.trackCensoredName,
-          //   trackCount: element.trackCount,
-          //   trackExplicitness: element.trackExplicitness,
-          //   trackId: element.trackId,
-          //   trackName: element.trackName,
-          //   trackTimeMillis: element.trackTimeMillis,
-          //   trackViewUrl: element.trackViewUrl,
-          // };
           this.results.push(element);
         });
       });
