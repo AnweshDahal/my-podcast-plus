@@ -5,6 +5,7 @@
       <GreeterVue></GreeterVue>
       <Home
         :likedPodcasts="likedPodcasts"
+        :previousPodcasts="previousPodcasts"
         :history="history"
         :searchResults="results"
         @openPodcast="openPodcastFeed"
@@ -69,6 +70,7 @@ export default {
       response: null,
       results: null,
       likedPodcasts: [],
+      previousPodcasts: [],
       history: [],
     };
   },

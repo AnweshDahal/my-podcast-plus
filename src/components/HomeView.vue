@@ -8,7 +8,11 @@
               Saved&nbsp;<span class="text-bold mr-2">Podcasts</span>
               <v-icon color="#EC3D43">mdi-heart</v-icon>
             </h2>
-            <v-row class="saved-podcasts-grid px-0 mt-3">
+
+            <v-row
+              class="saved-podcasts-grid px-0 mt-3"
+              v-if="likedPodcasts[0]"
+            >
               <v-col
                 cols="3"
                 class="mr-4"
@@ -28,6 +32,14 @@
                 </h4>
               </v-col>
             </v-row>
+            <v-row class="saved-podcast-grid px-0 mt-3" v-else>
+              <v-col cols="12" class="alternative-grid-elements">
+                <span
+                  >Looks like you have not saved any podcasts, save some
+                  podcasts to view them here</span
+                >
+              </v-col>
+            </v-row>
           </div>
         </div>
         <div class="history-podcast mt-4">
@@ -36,24 +48,32 @@
               Previously&nbsp;<span class="text-bold mr-2">Listened</span>
               <v-icon color="#0071E3">mdi-history</v-icon>
             </h2>
-            <v-row class="px-0 mt-3">
+            <v-row class="px-0 mt-3" v-if="previousPodcasts[0]">
               <v-col
                 cols="3"
                 class="mr-4"
-                v-for="likedPodcast in likedPodcasts"
-                :key="likedPodcast.collectionId"
+                v-for="previousPodcast in previousPodcasts"
+                :key="previousPodcast.collectionId"
                 style="width: 200px; max-width: 200px"
               >
                 <v-img
-                  :src="likedPodcast.artworkUrl100"
+                  :src="previousPodcast.artworkUrl100"
                   min-width="200"
                   max-width="200"
                   height="200"
                   class="history-podcast__thumbnail"
                 ></v-img>
                 <h4 class="history-podcast__name mt-3">
-                  {{ likedPodcast.collectionName }}
+                  {{ previousPodcast.collectionName }}
                 </h4>
+              </v-col>
+            </v-row>
+            <v-row class="saved-podcast-grid px-0 mt-3" v-else>
+              <v-col cols="12" class="alternative-grid-elements">
+                <span
+                  >Looks like you have not listened to any podcasts, view some
+                  podcasts to see them here</span
+                >
               </v-col>
             </v-row>
           </div>
@@ -290,5 +310,15 @@ export default {
 
 .result__artist {
   font-family: "Space Grotesk", Manrope, Inter, sans-serif !important;
+}
+
+.alternative-grid-elements {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
 }
 </style>
