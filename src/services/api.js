@@ -2,7 +2,7 @@ const itunesSearch = async (term) => {
   const url = new URL("https://itunes.apple.com/search");
   const params = {
     term,
-    limit: 8,
+    limit: 2,
     media: "podcast",
   };
   try {
