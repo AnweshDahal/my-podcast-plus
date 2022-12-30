@@ -1,7 +1,7 @@
 <template>
   <div class="home-container px-6 mt-9">
     <v-row class="home">
-      <v-col class="left-container" cols="8" >
+      <v-col class="left-container" cols="8">
         <div class="saved-podcast">
           <div class="saved-podcast__title">
             <h2 class="saved-podcast__title-text">
@@ -79,7 +79,45 @@
             </p>
           </div>
           <div class="search-container-searcbar">
-            <v-text-field class="searchbar" v-model="searchQuery" @keyup.enter="searchPodcast" dense outlined></v-text-field>
+            <v-text-field
+              class="searchbar"
+              v-model="searchQuery"
+              @keyup.enter="searchPodcast"
+              dense
+              outlined
+              placeholder="Press Enter to Search..."
+            ></v-text-field>
+          </div>
+          <div class="search-container__results">
+            <div
+              class="search-container__result"
+              v-for="searchResult in searchResults"
+              :key="searchResult.collectionId"
+            >
+              <div class="result__left">
+                <v-img
+                  :src="searchResult.artworkUrl60"
+                  height="60"
+                  width="60"
+                  class="result__thumbnail"
+                ></v-img>
+              </div>
+              <div class="result__right">
+                <div class="result__title">
+                  <span
+                    @click="openPodcast(searchResult.feedUrl)"
+                    style="cursor: pointer; font-family: inherit"
+                    >{{ searchResult.trackName }}</span
+                  >
+                </div>
+                <div class="result__save-container">
+                  <!-- <v-btn icon><v-icon color="#EC3D43">mdi-heart</v-icon></v-btn> -->
+                  <span class="result__artist">{{
+                    searchResult.artistName
+                  }}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </v-col>
@@ -90,21 +128,25 @@
 <script>
 export default {
   name: "HomeView",
-  data(){
+  data() {
     return {
       searchQuery: null,
-    }
+    };
   },
   methods: {
-    searchPodcast(){
-      this.$emit('searchPodcast', this.searchQuery)
-    }
+    searchPodcast() {
+      this.$emit("searchPodcast", this.searchQuery);
+    },
+    openPodcast(feedUrl) {
+      this.$emit("openPodcast", feedUrl);
+    },
   },
   props: {
     likedPodcasts: Array,
     previousPodcasts: Array,
+    searchResults: Array,
   },
-  emits: ["searchPodcast"],
+  emits: ["searchPodcast", "openPodcast"],
 };
 </script>
 
@@ -198,13 +240,55 @@ export default {
   background-clip: text;
 }
 
-.home-container .home .left-container{
+.home-container .home .left-container {
   overflow-y: scroll !important;
   overflow-x: hidden;
   max-height: 600px;
 }
 
-.searchbar{
+.searchbar {
   font-family: Inter, sans-serif !important;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.search-container__results {
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.search-container__result {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-radius: 26px;
+  margin-bottom: 20px;
+}
+
+.result__thumbnail {
+  border-radius: 8px;
+}
+
+.result__title span {
+  font-family: "Manrope", "Inter", sans-serif !important;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+
+  color: #000000;
+}
+
+.result__right {
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+  margin-left: 20px;
+}
+
+.result__artist {
+  font-family: "Space Grotesk", Manrope, Inter, sans-serif !important;
 }
 </style>

@@ -3,7 +3,13 @@
     <div>
       <HeaderVue></HeaderVue>
       <GreeterVue></GreeterVue>
-      <Home :likedPodcasts="results" @searchPodcast="submit"></Home>
+      <Home
+        :likedPodcasts="likedPodcasts"
+        :history="history"
+        :searchResults="results"
+        @openPodcast="openPodcastFeed"
+        @searchPodcast="submit"
+      ></Home>
       <MediaPlayer></MediaPlayer>
     </div>
   </v-app>
@@ -16,7 +22,7 @@ import HeaderVue from "./components/HeaderVue.vue";
 import MediaPlayer from "./components/MediaPlayer.vue";
 import GreeterVue from "./components/GreeterVue.vue";
 import HomeView from "./components/HomeView.vue";
-import { createPodcast } from "@/firebase/index";
+// import { createPodcast } from "@/firebase/index";
 
 export default {
   name: "App",
@@ -42,9 +48,18 @@ export default {
           this.results.push(element);
         });
       });
-
-      console.table(this.results);
-      createPodcast(this.results[0]);
+    },
+    async openPodcastFeed(feedUrl) {
+      console.log(feedUrl);
+      this.rssFeed = await api
+        .rssFetch(feedUrl)
+        .then((res) => {
+          console.log(res);
+        })
+        .error((err) => {
+          console.error(err);
+        });
+      // console.log(feedUrl);
     },
   },
 
@@ -53,6 +68,8 @@ export default {
       greet: null,
       response: null,
       results: null,
+      likedPodcasts: [],
+      history: [],
     };
   },
 };
