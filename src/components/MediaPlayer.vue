@@ -135,6 +135,7 @@ export default {
   bottom: 0;
   z-index: 10000;
   background-color: #fff;
+  box-shadow: 0px -1px 16px #eee;
 }
 .thumbnail-container {
   width: 130px;
@@ -189,7 +190,6 @@ export default {
 
 .time-container {
   display: flex;
-  padding-inline: 10px;
   align-items: center;
 }
 

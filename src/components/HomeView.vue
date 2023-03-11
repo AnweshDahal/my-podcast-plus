@@ -106,6 +106,7 @@
               dense
               outlined
               placeholder="Press Enter to Search..."
+              clearable
             ></v-text-field>
           </div>
           <div class="search-container__results">
@@ -283,7 +284,7 @@ export default {
   align-items: flex-start;
   padding: 16px;
   background-color: #f5f5f5;
-  border-radius: 26px;
+  border-radius: 10px;
   margin-bottom: 20px;
 }
 
@@ -314,6 +315,7 @@ export default {
 
 .alternative-grid-elements {
   display: flex;
+  padding: 16px;
   align-items: center;
   justify-content: center;
   height: 150px;
