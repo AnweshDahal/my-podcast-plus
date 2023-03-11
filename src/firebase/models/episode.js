@@ -1,4 +1,5 @@
 export default {
+  id: null,
   title: null,
   link: null,
   pubDate: null,
